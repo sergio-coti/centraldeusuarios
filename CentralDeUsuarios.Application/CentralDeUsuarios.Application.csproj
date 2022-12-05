@@ -7,7 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CentralDeUsuarios.Domain.Core\CentralDeUsuarios.Domain.Core.csproj" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Adapters\" />
+    <Folder Include="Mappings\" />
+    <Folder Include="Workflows\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

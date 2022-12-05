@@ -15,11 +15,13 @@ namespace CentralDeUsuarios.Infra.Data.Contexts
     public class SqlServerContext : DbContext
     {
         /// <summary>
-        /// Método para definir a connectionstring do projeto
+        /// Construtor da classe
         /// </summary>
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        /// <param name="dbContextOptions">Classe do EF para opções de configuração do DbContext</param>
+        public SqlServerContext(DbContextOptions<SqlServerContext> dbContextOptions)
+            : base(dbContextOptions)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=BD_CentralDeUsuarios;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+
         }
 
         /// <summary>
