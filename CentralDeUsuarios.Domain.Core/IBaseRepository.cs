@@ -11,7 +11,7 @@ namespace CentralDeUsuarios.Domain.Core
     /// </summary>
     /// <typeparam name="TEntity">Define o tipo da entidade</typeparam>
     /// <typeparam name="TKey">Define o tipo do ID da entidade</typeparam>
-    public interface IBaseRepository<TEntity, TKey>
+    public interface IBaseRepository<TEntity, TKey> : IDisposable
         where TEntity : class
     {
         void Create(TEntity entity);

@@ -22,7 +22,7 @@ namespace CentralDeUsuarios.Domain.Validations
             RuleFor(u => u.Nome)
                 .NotEmpty()
                 .Length(6, 150)
-                .WithMessage("Nome de usuário inválido");
+                .WithMessage("Nome de usuário inválido.");
 
             RuleFor(u => u.Email)
                 .NotEmpty()
@@ -32,10 +32,10 @@ namespace CentralDeUsuarios.Domain.Validations
             RuleFor(u => u.Senha)
                 .NotEmpty()
                 .Length(8, 20).WithMessage("Senha deve ter de 8 a 20 caracteres.")
-                .Matches(@"[A-Z]+").WithMessage("Senha deve ter pelo menos 1 letra maiúscula")
-                .Matches(@"[a-z]+").WithMessage("Senha deve ter pelo menos 1 letra minúscula")
-                .Matches(@"[0-9]+").WithMessage("Senha deve ter pelo menos 1 número")
-                .Matches(@"[\!\?\*\.\@]+").WithMessage("Senha deve ter pelo menos 1 caractere especial (!?*.@)");
+                .Matches(@"[A-Z]+").WithMessage("Senha deve ter pelo menos 1 letra maiúscula.")
+                .Matches(@"[a-z]+").WithMessage("Senha deve ter pelo menos 1 letra minúscula.")
+                .Matches(@"[0-9]+").WithMessage("Senha deve ter pelo menos 1 número.")
+                .Matches(@"[\!\?\*\.\@]+").WithMessage("Senha deve ter pelo menos 1 caractere especial (!?*.@).");
         }
     }
 }

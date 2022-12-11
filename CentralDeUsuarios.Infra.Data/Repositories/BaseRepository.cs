@@ -53,5 +53,10 @@ namespace CentralDeUsuarios.Infra.Data.Repositories
         {
             return _sqlServerContext.Set<TEntity>().Find(id);
         }
+
+        public void Dispose()
+        {
+            _sqlServerContext.Dispose();
+        }
     }
 }

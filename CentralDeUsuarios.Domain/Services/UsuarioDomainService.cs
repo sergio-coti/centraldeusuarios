@@ -41,5 +41,10 @@ namespace CentralDeUsuarios.Domain.Services
 
             _usuarioRepository.Create(usuario);
         }
+
+        public void Dispose()
+        {
+            _usuarioRepository.Dispose();
+        }
     }
 }

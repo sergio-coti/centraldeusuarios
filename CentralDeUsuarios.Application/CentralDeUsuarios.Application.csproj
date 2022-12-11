@@ -7,11 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\" />
     <Folder Include="Adapters\" />
-    <Folder Include="Mappings\" />
     <Folder Include="Workflows\" />
-    <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CentralDeUsuarios.Domain\CentralDeUsuarios.Domain.csproj" />
+    <ProjectReference Include="..\CentralDeUsuarios.Infra.Messages\CentralDeUsuarios.Infra.Messages.csproj" />
   </ItemGroup>
 
 </Project>

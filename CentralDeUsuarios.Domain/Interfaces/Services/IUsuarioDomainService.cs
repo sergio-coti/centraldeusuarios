@@ -10,7 +10,7 @@ namespace CentralDeUsuarios.Domain.Interfaces.Services
     /// <summary>
     /// Interface para serviços de domínio de usuário
     /// </summary>
-    public interface IUsuarioDomainService
+    public interface IUsuarioDomainService : IDisposable
     {
         /// <summary>
         /// Método para criar um usuário na aplicação
