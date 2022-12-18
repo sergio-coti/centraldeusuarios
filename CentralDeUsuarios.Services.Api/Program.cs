@@ -1,3 +1,4 @@
+using CentralDeUsuarios.Infra.Messages.Consumers;
 using CentralDeUsuarios.Services.Api;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,10 @@ Setup.AddRegisterServices(builder);
 Setup.AddEntityFrameworkServices(builder);
 Setup.AddMessageServices(builder);
 Setup.AddAutoMapperServices(builder);
+Setup.AddMongoDBServices(builder);
+
+//ativando o consumidor da mensageria
+builder.Services.AddHostedService<MessageQueueConsumer>();
 
 var app = builder.Build();
 

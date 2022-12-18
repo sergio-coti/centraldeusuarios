@@ -5,6 +5,10 @@ using CentralDeUsuarios.Domain.Interfaces.Services;
 using CentralDeUsuarios.Domain.Services;
 using CentralDeUsuarios.Infra.Data.Contexts;
 using CentralDeUsuarios.Infra.Data.Repositories;
+using CentralDeUsuarios.Infra.Logs.Contexts;
+using CentralDeUsuarios.Infra.Logs.Interfaces;
+using CentralDeUsuarios.Infra.Logs.Persistence;
+using CentralDeUsuarios.Infra.Logs.Settings;
 using CentralDeUsuarios.Infra.Messages.Helpers;
 using CentralDeUsuarios.Infra.Messages.Producers;
 using CentralDeUsuarios.Infra.Messages.Settings;
@@ -42,6 +46,14 @@ namespace CentralDeUsuarios.Services.Api
         public static void AddAutoMapperServices(this WebApplicationBuilder builder)
         {
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+        }
+
+        public static void AddMongoDBServices(this WebApplicationBuilder builder)
+        {
+            builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDBSettings"));
+
+            builder.Services.AddSingleton<MongoDBContext>();
+            builder.Services.AddTransient<ILogUsuariosPersistence, LogUsuariosPersistence>();
         }
     }
 }

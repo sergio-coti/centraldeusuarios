@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CentralDeUsuarios.Domain\CentralDeUsuarios.Domain.csproj" />
+    <ProjectReference Include="..\CentralDeUsuarios.Infra.Logs\CentralDeUsuarios.Infra.Logs.csproj" />
     <ProjectReference Include="..\CentralDeUsuarios.Infra.Messages\CentralDeUsuarios.Infra.Messages.csproj" />
   </ItemGroup>
 

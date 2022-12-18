@@ -3,8 +3,11 @@ using CentralDeUsuarios.Application.Commands;
 using CentralDeUsuarios.Application.Interfaces;
 using CentralDeUsuarios.Domain.Entities;
 using CentralDeUsuarios.Domain.Interfaces.Services;
+using CentralDeUsuarios.Infra.Logs.Interfaces;
+using CentralDeUsuarios.Infra.Logs.Models;
 using CentralDeUsuarios.Infra.Messages.Models;
 using CentralDeUsuarios.Infra.Messages.Producers;
+using CentralDeUsuarios.Infra.Messages.ValueObjects;
 using FluentValidation;
 using Newtonsoft.Json;
 using System;
@@ -22,37 +25,65 @@ namespace CentralDeUsuarios.Application.Services
     {
         private readonly IUsuarioDomainService _usuarioDomainService;
         private readonly MessageQueueProducer _messageQueueProducer;
+        private readonly ILogUsuariosPersistence _logUsuariosPersistence;
         private readonly IMapper _mapper;
 
-        public UsuarioAppService(IUsuarioDomainService usuarioDomainService, MessageQueueProducer messageQueueProducer, IMapper mapper)
+        public UsuarioAppService(IUsuarioDomainService usuarioDomainService, MessageQueueProducer messageQueueProducer, IMapper mapper, ILogUsuariosPersistence logUsuariosPersistence)
         {
             _usuarioDomainService = usuarioDomainService;
             _messageQueueProducer = messageQueueProducer;
             _mapper = mapper;
+            _logUsuariosPersistence = logUsuariosPersistence;
         }
 
         public void CriarUsuario(CriarUsuarioCommand command)
         {
-            //gerando um usuário a partir do command (automapper)
+            #region Capturando e validando o usuário
+
             var usuario = _mapper.Map<Usuario>(command);
 
-            //executar a validação do usuário
             var validate = usuario.Validate;
-
             if (!validate.IsValid)
                 throw new ValidationException(validate.Errors);
 
-            //criando o usuário
+            #endregion
+
+            #region Cadastrando o usuário
+
             _usuarioDomainService.CriarUsuario(usuario);
 
-            //Criando o conteudo da mensagem que será enviada para a fila
+            #endregion
+
+            #region Enviando uma mensagem para a fila
+
             var _messageQueueModel = new MessageQueueModel
             {
-                Conteudo = JsonConvert.SerializeObject(usuario)
+                Tipo = TipoMensagem.CONFIRMACAO_DE_CADASTRO,
+                Conteudo = JsonConvert.SerializeObject(new UsuariosMessageVO 
+                { 
+                    Id = usuario.Id,
+                    Nome = usuario.Nome,
+                    Email= usuario.Email,
+                })
             };
 
-            //enviando mensagem para a fila
             _messageQueueProducer.Create(_messageQueueModel);
+
+            #endregion
+
+            #region Gravando o log da operação
+
+            var logUsuarioModel = new LogUsuarioModel
+            {
+                UsuarioId = usuario.Id,
+                DataHora = DateTime.Now,
+                Operacao = "Criação de usuário",
+                Detalhes = JsonConvert.SerializeObject(new { usuario.Nome, usuario.Email })
+            };
+
+            _logUsuariosPersistence.Create(logUsuarioModel);
+
+            #endregion
         }
 
         public void Dispose()
