@@ -75,6 +75,7 @@ namespace CentralDeUsuarios.Application.Services
 
             var logUsuarioModel = new LogUsuarioModel
             {
+                Id = Guid.NewGuid(),
                 UsuarioId = usuario.Id,
                 DataHora = DateTime.Now,
                 Operacao = "Criação de usuário",
