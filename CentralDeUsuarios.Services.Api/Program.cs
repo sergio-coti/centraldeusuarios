@@ -14,6 +14,7 @@ Setup.AddRegisterServices(builder);
 Setup.AddEntityFrameworkServices(builder);
 Setup.AddMessageServices(builder);
 Setup.AddAutoMapperServices(builder);
+Setup.AddMediatRServices(builder);
 Setup.AddMongoDBServices(builder);
 
 //ativando o consumidor da mensageria
@@ -34,4 +35,5 @@ app.MapControllers();
 
 app.Run();
 
+//Declaração publica da classe
 public partial class Program { }

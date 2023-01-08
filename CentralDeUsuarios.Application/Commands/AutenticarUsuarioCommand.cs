@@ -8,11 +8,10 @@ using System.Threading.Tasks;
 namespace CentralDeUsuarios.Application.Commands
 {
     /// <summary>
-    /// Modelo de dados para a requisição de cadastro de usuário
+    /// Modelo de dados para a requisição de autenticação de usuário
     /// </summary>
-    public class CriarUsuarioCommand : IRequest
+    public class AutenticarUsuarioCommand : IRequest
     {
-        public string? Nome { get; set; }
         public string? Email { get; set; }
         public string? Senha { get; set; }
     }

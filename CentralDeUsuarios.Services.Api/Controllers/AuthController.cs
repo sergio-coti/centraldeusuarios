@@ -7,25 +7,21 @@ namespace CentralDeUsuarios.Services.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsuariosController : ControllerBase
+    public class AuthController : ControllerBase
     {
         private readonly IUsuarioAppService _usuarioAppService;
 
-        public UsuariosController(IUsuarioAppService usuarioAppService)
+        public AuthController(IUsuarioAppService usuarioAppService)
         {
             _usuarioAppService = usuarioAppService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(CriarUsuarioCommand command)
+        public async Task<IActionResult> Post(AutenticarUsuarioCommand command)
         {
-            await _usuarioAppService.CriarUsuario(command);
+            await _usuarioAppService.AutenticarUsuario(command);
 
-            return StatusCode(201, new 
-            { 
-                message = "Usuário cadastrado com sucesso.",
-                command
-            });
+            return StatusCode(200, new { /* TODO */ });
         }
     }
 }

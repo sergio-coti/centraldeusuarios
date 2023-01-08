@@ -12,6 +12,7 @@ using CentralDeUsuarios.Infra.Logs.Settings;
 using CentralDeUsuarios.Infra.Messages.Helpers;
 using CentralDeUsuarios.Infra.Messages.Producers;
 using CentralDeUsuarios.Infra.Messages.Settings;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace CentralDeUsuarios.Services.Api
@@ -46,6 +47,11 @@ namespace CentralDeUsuarios.Services.Api
         public static void AddAutoMapperServices(this WebApplicationBuilder builder)
         {
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+        }
+
+        public static void AddMediatRServices(this WebApplicationBuilder builder)
+        {
+            builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
         }
 
         public static void AddMongoDBServices(this WebApplicationBuilder builder)
